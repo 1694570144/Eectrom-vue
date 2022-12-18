@@ -9,12 +9,12 @@ function createWindow() {
       preload: path.join(__dirname, 'preload.js'),
     },
   })
-  win.loadURL('http://127.0.0.1:5173/')
+
+  win.loadURL(`http://127.0.0.1:${process.env.PROT}/`)
 
   if (NODE_ENV === 'development') {
     win.webContents.openDevTools()
   }
-
 }
 
 app.whenReady().then(() => {
@@ -24,7 +24,5 @@ app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) createWindow()
 })
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+  if (process.platform !== 'darwin') app.quit()
 })
